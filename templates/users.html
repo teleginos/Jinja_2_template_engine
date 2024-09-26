@@ -1,0 +1,59 @@
+{% extends 'main.html'%}
+{% block crud_container %}
+
+    <article class="card container fluid"></article>
+    <br>
+    <section class="container-fluid">
+        <h2 align="center"> Add user </h2>
+        <br>
+        <form method="post" action="/add_user">
+            <div class="col-auto">
+                <div class="input-group mb-3">
+                    <input type="text" name="username" class="form-control"
+                    placeholder="Username" aria-label="Add user" required/>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="number" name="age" class="form-control"
+                    placeholder="User age" aria-label="Add age" required/>
+                </div>
+                <button class="btn btn-outline-primary" type="submit" id="button-addon3">Add</button>
+            </div>
+        </form>
+    </section>
+
+    {% if user %}
+    <article class = "card container fluid">
+        <br>
+        <h2> ID: {{user.id}}</h2>
+        <p><strong> Username: {{user.username}} </strong></p>
+    </article>
+            <!-- Напишите свой код здесь (Вывод свойств объекта User) -->
+
+    {% else %}
+            <section class="container-fluid">
+                <h2 align="center"> Users </h2>
+                <br>
+
+                {% if selected_user %}
+                <div class="card mb-3">
+                    <h3> Selected User </h3>
+                    <h4><strong>ID:</strong> {{selected_user.id}}</h4>
+                    <p><strong>Username:</strong> {{selected_user.username}}</p>
+                    <p><strong>Age:</strong> {{selected_user.age}}</p>
+
+                    <a href="/" class="btn btn-primary">Back to all users</a>
+                </div>
+                {% endif %}
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        {% for user in users %}
+                        <li class="list-group-item">
+                            <a href="/users/{{user.id}}"> {{user.id}}. {{user.username}} </a>
+                        </li>
+                        {% endfor %}
+                        <!-- Напишите свой код здесь (перебор пользователей) -->
+                    </ul>
+                </div>
+            </section>
+    {% endif %}
+{% endblock %}
